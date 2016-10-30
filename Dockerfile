@@ -2,6 +2,10 @@ FROM williamyeh/wrk
 
 MAINTAINER phpramework <phpramework@gmail.com>
 
+RUN apk update --no-cache \
+    && apk add --no-cache \
+        su-exec
+
 ENV FRAMEWORK=unknown \
     URI_JSON=/json \
     URI_DB=/db \
