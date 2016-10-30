@@ -24,6 +24,8 @@ VOLUME /result
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY benchmark-plaintext.sh /usr/local/bin/benchmark-plaintext.sh
+COPY benchmark-plaintext.sh /usr/local/bin/benchmark-json.sh
+COPY benchmark-plaintext.sh /usr/local/bin/benchmark-db.sh
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["wrk"]
