@@ -1,9 +1,6 @@
-FROM williamyeh/wrk
+FROM alpine:3.4
 
 MAINTAINER phpramework <phpramework@gmail.com>
-
-RUN apk add --no-cache \
-        su-exec
 
 ENV FRAMEWORK=unknown \
     URI_JSON=/json \
@@ -14,6 +11,14 @@ ENV FRAMEWORK=unknown \
     URI_PLAINTEXT=/plaintext \
     BENCHMARK_CORES=1
 
+RUN apk update --no-cache \
+    && apk add --no-cache \
+        libgcc \
+        su-exec
+
+ADD install-wrk.sh /
+RUN /install-wrk.sh
+
 RUN mkdir -p /result
 VOLUME /result
 
@@ -21,3 +26,4 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY benchmark-plaintext.sh /usr/local/bin/benchmark-plaintext.sh
 
 ENTRYPOINT ["entrypoint.sh"]
+CMD ["wrk"]
