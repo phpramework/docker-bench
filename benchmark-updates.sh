@@ -20,7 +20,7 @@ echo ""
 wrk --latency -d 15 -c 256 -t ${BENCHMARK_CORES} http://app-server${URI_UPDATES}
 sleep 5
 
-for c in 8 16 32 64 128 256
+for c in 1 5 10 15 20
 do
     echo ""
     echo "---------------------------------------------------------"
