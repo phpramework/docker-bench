@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM phpramework/composer
 
 MAINTAINER phpramework <phpramework@gmail.com>
 
@@ -11,10 +11,11 @@ ENV FRAMEWORK=unknown \
     URI_PLAINTEXT=/plaintext \
     BENCHMARK_CORES=1
 
-RUN apk update --no-cache \
-    && apk add --no-cache \
-        libgcc \
-        su-exec
+RUN curl -L https://github.com/consolidation/Robo/releases/download/1.0.0-RC3/robo.phar > /usr/local/bin/robo \
+    && chmod +x /usr/local/bin/robo
+
+RUN apk add --no-cache \
+        libgcc
 
 ADD install-wrk.sh /
 RUN /install-wrk.sh
@@ -29,6 +30,7 @@ COPY benchmark-db.sh /usr/local/bin/benchmark-db.sh
 COPY benchmark-queries.sh /usr/local/bin/benchmark-queries.sh
 COPY benchmark-updates.sh /usr/local/bin/benchmark-updates.sh
 COPY benchmark-fortunes.sh /usr/local/bin/benchmark-fortunes.sh
+COPY RoboFile.php /project/RoboFile.php
 
-ENTRYPOINT ["entrypoint.sh"]
-CMD ["wrk"]
+ENTRYPOINT ["entrypoint.sh", "robo"]
+#CMD ["wrk"]
