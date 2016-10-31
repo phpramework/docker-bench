@@ -82,6 +82,10 @@ final class RoboFile extends \Robo\Tasks
         $result = $this->_exec(
             "wrk --latency -d 15 -c {$concurency} -t {$cores} http://app-server{$uri}"
         );
+        file_put_contents(
+            "/result/{$test}_{$concurency}.output",
+            $result->getOutputData()
+        );
 
         return $result;
     }
@@ -167,6 +171,10 @@ final class RoboFile extends \Robo\Tasks
 
         $result = $this->_exec(
             "wrk --latency -d 15 -c 256 -t {$cores} http://app-server{$uri}{$queries}"
+        );
+        file_put_contents(
+            "/result/{$test}_{$queries}.output",
+            $result->getOutputData()
         );
 
         return $result;
