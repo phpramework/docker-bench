@@ -1,4 +1,4 @@
-FROM phpramework/composer
+FROM quay.io/phpramework/composer
 
 MAINTAINER phpramework <phpramework@gmail.com>
 
